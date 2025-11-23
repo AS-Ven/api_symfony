@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Stable & Uma Dashboard</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>🐴</text></svg>">
+        <style>
+            body {
+                font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+                background-color: #f8f9fa;
+                color: #212529;
+                margin: 0;
+                padding: 20px;
+            }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            h1 {
+                color: #343a40;
+                text-align: center;
+                margin-bottom: 40px;
+            }
+            h2 {
+                color: #495057;
+                border-bottom: 2px solid #dee2e6;
+                padding-bottom: 10px;
+                margin-top: 40px;
+            }
+            .card {
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 15px;
+            }
+            th, td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #dee2e6;
+            }
+            th {
+                background-color: #e9ecef;
+                font-weight: 600;
+            }
+            tr:hover {
+                background-color: #f8f9fa;
+            }
+            .badge {
+                display: inline-block;
+                padding: 0.25em 0.4em;
+                font-size: 75%;
+                font-weight: 700;
+                line-height: 1;
+                text-align: center;
+                white-space: nowrap;
+                vertical-align: baseline;
+                border-radius: 0.25rem;
+                background-color: #007bff;
+                color: white;
+            }
+            .badge-secondary {
+                background-color: #6c757d;
+            }
+            .empty-state {
+                text-align: center;
+                color: #6c757d;
+                font-style: italic;
+                padding: 20px;
+            }
+            .api-link {
+                display: block;
+                text-align: center;
+                margin-top: 40px;
+                padding: 10px;
+                background-color: #28a745;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                font-weight: bold;
+            }
+            .api-link:hover {
+                background-color: #218838;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🐴 Stable & Uma Dashboard</h1>
+
+            <div class="card">
+                <h2>Stables</h2>
+                {% if stables is empty %}
+                    <div class="empty-state">No stables found. Use the API to create some!</div>
+                {% else %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Umas Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for stable in stables %}
+                                <tr>
+                                    <td>{{ stable.id }}</td>
+                                    <td>{{ stable.name }}</td>
+                                    <td><span class="badge">{{ stable.umas|length }}</span></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+
+            <div class="card">
+                <h2>Umas</h2>
+                {% if umas is empty %}
+                    <div class="empty-state">No umas found. Use the API to create some!</div>
+                {% else %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Race</th>
+                                <th>Style</th>
+                                <th>Stable</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for uma in umas %}
+                                <tr>
+                                    <td>{{ uma.id }}</td>
+                                    <td><strong>{{ uma.name }}</strong></td>
+                                    <td>{{ uma.race }}</td>
+                                    <td>{{ uma.style }}</td>
+                                    <td>
+                                        {% if uma.stable %}
+                                            <span class="badge badge-secondary">{{ uma.stable.name }}</span>
+                                        {% else %}
+                                            <span style="color: #999;">No Stable</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+
+            <a href="/api" class="api-link">Go to API Documentation (Swagger UI)</a>
+        </div>
+    </body>
+</html>
