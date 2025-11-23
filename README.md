@@ -2,6 +2,12 @@
 
 This project is a REST API built with Symfony and API Platform, featuring a simple frontend dashboard.
 
+## Contributeurs
+
+> Aldric Vendas ([AS-Ven](https://github.com/AS-Ven))
+
+> Jérôme ZHAO ([TerukiDev](https://github.com/TerukiDev))
+
 ## Prerequisites
 
 - **Docker & Docker Compose** (for the database)
